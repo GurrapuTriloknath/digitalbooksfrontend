@@ -1,0 +1,27 @@
+
+<br><br>
+<button class="btn btn-secondary create " routerLink='/bookslist'>Bookform</button>
+<br>
+
+<table class="table table-striped table-hover" style="background-color:aqua">
+  <thead style="background-color:aquamarine;">
+  <td>Title</td>
+  <td>Author</td>
+  <td>Category</td>
+  <td>Price</td>
+  <td>Publisher</td>
+  <td>Published Date</td>
+  <td></td>
+  </thead>
+
+    <tr *ngFor = 'let book of books'>
+  <td>{{book.title}}</td>
+  <td>{{book.author}}</td>
+  <td>{{book.category}}</td>
+  <td>{{book.price}}</td>
+  <td>{{book.publisher}}</td>
+  <td>{{book.publisheddate}}</td>
+  <td><button (click) ='deleteBook(book.id)'>Delete Book</button></td>
+    </tr>
+</table>
+

@@ -1,10 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TokenService } from './token.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'digitalbooksfrontend';
+export class AppComponent implements OnInit {
+  private roles: string[] = [];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username: any;
+role:any;
+signin:any;
+  constructor(private tokenService: TokenService) { }
+
+  ngOnInit(): void {
+    this.username = localStorage.getItem('username');
+    this.signin = localStorage.getItem('signin');
+    
+
+    if (this.isLoggedIn) {
+      const user = this.tokenService.getUser();
+      this.roles = user.roles;
+
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+
+      this.username = user.username;
+    }
+  }
+
+  signout(): void {
+    this.tokenService.signOut();
+    window.location.reload();
+  }
 }
